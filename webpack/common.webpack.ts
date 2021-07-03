@@ -1,6 +1,7 @@
 import * as webpack from 'webpack';
 import * as path from 'path';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import nodeExternals from 'webpack-node-externals';
 
 export const mode =
   process.env.NODE_ENV === 'production' ? 'production' : 'development';
@@ -19,8 +20,9 @@ export const clientSrcPath = path.resolve(srcPath, 'client');
 
 export const commonConfig = (): webpack.Configuration => {
   const config: webpack.Configuration = {
+    stats: { errorDetails: true, errorStack: true },
     mode,
-    devtool: !isProd ? 'cheap-module-source-map' : undefined,
+    devtool: !isProd ? 'eval-cheap-module-source-map' : undefined,
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.scss', '.sass'],
     },
@@ -39,6 +41,7 @@ export const commonConfig = (): webpack.Configuration => {
                   '@babel/preset-env',
                 ],
                 plugins: ['@babel/plugin-transform-runtime'],
+                retainLines: true,
               },
             },
           ],
@@ -67,7 +70,7 @@ export const commonConfig = (): webpack.Configuration => {
     optimization: {
       minimize: isProd,
     },
-    externals: ['commonjs'],
+    externals: ['commonjs', nodeExternals()],
   };
 
   return config;
