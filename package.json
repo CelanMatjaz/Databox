@@ -42,6 +42,6 @@
   "scripts": {
     "build:server": "webpack --config ./webpack/server.webpack.ts",
     "build:client": "webpack --config ./webpack/client.webpack.ts",
-    "temp": "concurrently \"yarn build:server\" \"yarn build:client\" && node build/server/server.js "
+    "build-and-run": "concurrently \"yarn build:server\" \"yarn build:client\" && node build/server/server.js "
   }
 }
