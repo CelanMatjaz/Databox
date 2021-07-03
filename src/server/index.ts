@@ -1,4 +1,4 @@
-import { metrics } from './../types/metrics';
+import { insertMetrics } from './databox';
 import { fetchWeatherData } from './apis/weather';
 import express from 'express';
 import * as path from 'path';
@@ -19,7 +19,7 @@ const authenticateGithub = async () => {
   await open(authUrl);
 };
 
-// authenticateGithub();
+authenticateGithub();
 
 const app = express();
 
@@ -48,12 +48,12 @@ app.get<{ state: string; code: string }>(
     const githubData = await fetchGithubData(access_token, token_type);
     const weatherData = await fetchWeatherData();
 
-    const combinedData: metrics = { ...githubData, ...weatherData };
+    insertMetrics(Object.assign(githubData, weatherData));
 
-    console.log(JSON.stringify(combinedData, null, 2));
-    return res.redirect(`/`);
+    res.redirect(`/`);
   }
 );
+
 const PORT = process.env.PORT || 2000;
 
 app.use(express.static(path.resolve('build/client')));
