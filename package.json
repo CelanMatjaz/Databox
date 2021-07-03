@@ -4,12 +4,14 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.14.6",
+    "@babel/plugin-transform-runtime": "^7.14.5",
     "@babel/preset-env": "^7.14.7",
     "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "^7.14.5",
     "@types/express": "^4.17.12",
     "@types/mini-css-extract-plugin": "^2.0.0",
     "@types/node": "^15.14.0",
+    "@types/open": "^6.2.1",
     "@types/react": "^17.0.13",
     "@types/react-dom": "^17.0.8",
     "@types/webpack-merge": "^5.0.0",
@@ -33,15 +35,19 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "databox": "^2.0.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "node": "^16.4.0",
+    "open": "^8.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "scripts": {
+    "dev:watch": "concurrently \"yarn build:server -w\" \"yarn build:client -w\"",
+    "dev:server": "nodemon build/server/server.js",
     "build:server": "webpack --config ./webpack/server.webpack.ts",
     "build:client": "webpack --config ./webpack/client.webpack.ts",
-    "build-and-run": "concurrently \"yarn build:server\" \"yarn build:client\" && node build/server/server.js "
+    "build-and-run": "concurrently \"yarn build:server\" \"yarn build:client\" && node build/server/server.js"
   }
 }
