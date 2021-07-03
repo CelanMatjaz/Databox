@@ -28,7 +28,20 @@ export const commonConfig = (): webpack.Configuration => {
       rules: [
         {
           test: /\.tsx?$/,
-          use: ['babel-loader', 'ts-loader'],
+          use: [
+            'ts-loader',
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: [
+                  '@babel/preset-typescript',
+                  '@babel/preset-react',
+                  '@babel/preset-env',
+                ],
+                plugins: ['@babel/plugin-transform-runtime'],
+              },
+            },
+          ],
           exclude: ['/node_modules'],
         },
         {

@@ -14,6 +14,7 @@ export default (): webpack.Configuration => {
       path: serverBuildPath,
       publicPath: '/',
       filename: 'server.js',
+      libraryTarget: 'commonjs2',
     },
   });
 };
