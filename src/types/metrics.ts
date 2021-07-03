@@ -1,14 +1,14 @@
 export interface githubMetrics {
   forks_count: number;
   open_issues: number;
-  default_branch: string;
-  language: string;
+  branches_count: number;
+  watchers_count: number;
   subscribers_count: number;
 }
 
 export interface weatherMetrics {
-  weather: string;
-  weather_description: string;
+  humidity: number;
+  pressure: number;
   temperature: number;
   visibility: number;
   wind_speed: number;
