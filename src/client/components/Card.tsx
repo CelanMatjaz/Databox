@@ -15,7 +15,7 @@ export const Card: React.FC<Props> = ({
     <div className='card'>
       <ul>
         <li>Service: {service}</li>
-        <li>Time: {timestamp}</li>
+        <li>Timestamp: {timestamp}</li>
         <li>
           Metrics sent:
           <div>
