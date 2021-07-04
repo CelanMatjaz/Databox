@@ -1,5 +1,5 @@
 import { getToken } from './apis/github';
-import { getData } from './db';
+import { db, getData } from './db';
 import { Request, Response } from 'express';
 
 import config from './config';
@@ -17,13 +17,13 @@ export const handlers = {
       config.clientSecret,
       code as string
     );
-    
+
     config.githubAccessToken = access_token;
     config.githubAccessTokenType = token_type;
 
     res.redirect(`/`);
   },
   getDataHandler: (req: Request, res: Response) => {
-    res.send(getData());
+    res.send(getData(db));
   },
 };

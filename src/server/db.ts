@@ -8,15 +8,14 @@ import config from './config';
 
 export const db = new JsonDB(new Config(config.dbFileName, true, true, '/'));
 
-const dataString = '/data';
-
-export const saveDataToDb = (data: Data) => {
-  db.push(dataString, data);
+export const saveDataToDb = (db: JsonDB, data: Data) => {
+  db.push('/data[]', data);
 };
 
 export const saveAndSendMetrics = (
   apiData: Partial<metrics>,
-  service: Service
+  service: Service,
+  db: JsonDB
 ) => {
   insertMetrics(client, apiData, (res) => {
     const data: Data = {
@@ -28,10 +27,10 @@ export const saveAndSendMetrics = (
       error: res.message,
     };
 
-    saveDataToDb(data);
+    saveDataToDb(db, data);
   });
 };
 
-export const getData = () => {
-  return db.getData(dataString);
+export const getData = (db: JsonDB) => {
+  return db.getData('/data');
 };
