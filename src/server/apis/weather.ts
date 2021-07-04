@@ -1,4 +1,4 @@
-import { weatherMetrics } from './../../types/metrics';
+import { weatherMetrics } from '../../common/types/metrics';
 import axios, { AxiosResponse } from 'axios';
 import * as dotenv from 'dotenv';
 

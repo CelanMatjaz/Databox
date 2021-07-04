@@ -1,4 +1,4 @@
-import { githubMetrics } from './../../types/metrics';
+import { githubMetrics } from '../../common/types/metrics';
 import axios, { AxiosResponse } from 'axios';
 
 type GithubResponse = Omit<githubMetrics, 'branches_count'> & {

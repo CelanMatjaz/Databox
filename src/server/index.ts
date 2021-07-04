@@ -22,11 +22,12 @@ const authenticateGithub = async () => {
 
 app.get<{ state: string; code: string }>(
   '/github-callback',
-  handlers.callbackUrl
+  handlers.callbackUrlHandler
 );
 
 const PORT = process.env.PORT || 2000;
 
+app.get('/data', handlers.getDataHandler);
 app.use(express.static(path.resolve('build/client')));
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('build/client/index.html'));

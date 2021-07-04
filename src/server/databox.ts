@@ -1,5 +1,5 @@
 /// @ts-nocheck
-import { metrics } from './../types/metrics';
+import { metrics } from '../common/types/metrics';
 import Databox from 'databox';
 import * as dotenv from 'dotenv';
 dotenv.config();

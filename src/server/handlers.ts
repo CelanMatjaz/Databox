@@ -1,7 +1,8 @@
 import { getToken, fetchGithubData } from './apis/github';
 import { fetchWeatherData } from './apis/weather';
-import { saveAndSendMetrics } from './db';
+import { saveAndSendMetrics, getData } from './db';
 import * as dotenv from 'dotenv';
+import { Request, Response } from 'express';
 
 dotenv.config();
 
@@ -9,7 +10,7 @@ const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
 
 export const handlers = {
-  callbackUrl: async (req, res) => {
+  callbackUrlHandler: async (req: Request, res: Response) => {
     const { state, code } = req.query;
 
     if (state !== state) {
@@ -25,9 +26,12 @@ export const handlers = {
     const githubData = await fetchGithubData(access_token, token_type);
     const weatherData = await fetchWeatherData();
 
-    saveAndSendMetrics(githubData, 'github');
-    saveAndSendMetrics(weatherData, 'weather_api');
+    saveAndSendMetrics(githubData, 'Github');
+    saveAndSendMetrics(weatherData, 'Weather api');
 
     res.redirect(`/`);
+  },
+  getDataHandler: (req: Request, res: Response) => {
+    res.send(getData());
   },
 };
