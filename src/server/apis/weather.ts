@@ -1,5 +1,8 @@
 import { weatherMetrics } from './../../types/metrics';
 import axios, { AxiosResponse } from 'axios';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const city = 'maribor';
 const API_KEY = process.env.WEATHER_API_KEY;

@@ -15,8 +15,6 @@ export const saveAndSendMetrics = (
   service: Service
 ) => {
   insertMetrics(apiData, (res) => {
-    console.log(res);
-
     const data: Data = {
       service,
       timestamp: new Date(),

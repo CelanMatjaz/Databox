@@ -16,7 +16,7 @@ export const client = new Databox({
 
 export const insertMetrics = (
   metrics: Partial<metrics>,
-  cb: (response?: DataboxResponse) => void = () => {}
+  cb?: (response?: DataboxResponse) => void
 ) => {
   const a = client.insertAll(
     Object.entries<{ [key: string]: number }>(metrics).map(([key, value]) => ({
