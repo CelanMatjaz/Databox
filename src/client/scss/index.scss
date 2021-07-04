@@ -32,6 +32,7 @@ ul {
   height: 100%;
   width: 100%;
   padding: 20px;
+  position: relative;
 }
 
 .data {
@@ -40,6 +41,7 @@ ul {
   grid-template-columns: repeat(auto-fit, 300px);
   grid-gap: 10px;
   overflow-y: auto;
+  min-height: 600px;
 }
 
 .card {
@@ -47,4 +49,20 @@ ul {
   border: 1px solid grey;
   border-radius: 6px;
   display: inline-block;
+}
+
+#update-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  color: white;
+  background-color: #313131;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#update-button:active {
+  background-color: #565656;
 }
