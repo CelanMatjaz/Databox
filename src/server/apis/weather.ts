@@ -19,8 +19,6 @@ export const fetchWeatherData = async (): Promise<weatherMetrics> => {
     },
   });
 
-  console.log(res.data);
-
   const {
     main: { temp, pressure, humidity },
     visibility,
@@ -30,7 +28,7 @@ export const fetchWeatherData = async (): Promise<weatherMetrics> => {
   return {
     pressure,
     humidity,
-    visibility,
+    visibility: visibility / 100,
     temperature: temp,
     wind_speed: speed,
   };

@@ -31,3 +31,28 @@ export const fetchGithubData = async (
     subscribers_count,
   };
 };
+
+export const getToken = async (
+  client_id: string,
+  client_secret: string,
+  code: string
+): Promise<{ access_token: string; token_type: string }> => {
+  const response = await axios.get<
+    {},
+    AxiosResponse<{ access_token: string; token_type: string; scope: string }>
+  >('https://github.com/login/oauth/access_token', {
+    params: {
+      client_id,
+      client_secret,
+      code,
+    },
+    headers: { Accept: 'application/json' },
+  });
+
+  const { access_token, token_type } = response.data;
+
+  return {
+    access_token,
+    token_type,
+  };
+};

@@ -1,11 +1,11 @@
-import { insertMetrics } from './databox';
+import { client, insertMetrics } from './databox';
 import { fetchWeatherData } from './apis/weather';
 import express from 'express';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
 import open from 'open';
 import axios, { AxiosResponse } from 'axios';
-import { fetchGithubData } from './apis/github';
+import { fetchGithubData, getToken } from './apis/github';
 
 dotenv.config();
 
@@ -19,7 +19,7 @@ const authenticateGithub = async () => {
   await open(authUrl);
 };
 
-authenticateGithub();
+// authenticateGithub();
 
 const app = express();
 
@@ -32,23 +32,16 @@ app.get<{ state: string; code: string }>(
       return res.redirect('/github-auth-error');
     }
 
-    const response = await axios.get<
-      {},
-      AxiosResponse<{ access_token: string; token_type: string; scope: string }>
-    >('https://github.com/login/oauth/access_token', {
-      params: {
-        client_id,
-        client_secret,
-        code,
-      },
-      headers: { Accept: 'application/json' },
-    });
-
-    const { access_token, token_type } = response.data;
+    const { access_token, token_type } = await getToken(
+      client_id,
+      client_secret,
+      code as string
+    );
+    
     const githubData = await fetchGithubData(access_token, token_type);
     const weatherData = await fetchWeatherData();
 
-    insertMetrics(Object.assign(githubData, weatherData));
+    insertMetrics(Object.assign({}, githubData, weatherData));
 
     res.redirect(`/`);
   }
