@@ -9,6 +9,8 @@ export interface Config {
   state: string;
   weatherApiKey: string;
   dbFileName: string;
+  githubAccessToken: string;
+  githubAccessTokenType: string;
 }
 
 const serverConfig: Config = {
@@ -19,6 +21,8 @@ const serverConfig: Config = {
   state: process.env.STATE,
   weatherApiKey: process.env.WEATHER_API_KEY,
   dbFileName: process.env.DB ? process.env.DB : 'database.json',
+  githubAccessToken: '',
+  githubAccessTokenType: '',
 };
 
 export default serverConfig;

@@ -1,3 +1,4 @@
+import { startPolling } from './apis/api';
 import { handlers } from './handlers';
 import express from 'express';
 import * as path from 'path';
@@ -16,7 +17,8 @@ const authenticateGithub = async () => {
   await open(authUrl);
 };
 
-// authenticateGithub();
+authenticateGithub();
+startPolling();
 
 app.get<{ state: string; code: string }>(
   '/github-callback',
