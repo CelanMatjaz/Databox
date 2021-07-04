@@ -1,16 +1,14 @@
 import { handlers } from './handlers';
 import express from 'express';
 import * as path from 'path';
-import * as dotenv from 'dotenv';
 import open from 'open';
 
-dotenv.config();
+import config from './config';
 
 const app = express();
 
-const client_id = process.env.CLIENT_ID;
-const client_secret = process.env.CLIENT_SECRET;
-const state = process.env.STATE;
+const client_id = config.clientId;
+const state = config.state;
 
 export const authUrl = `https://github.com/login/oauth/authorize?client_id=${client_id}&login=&state=${state}`;
 

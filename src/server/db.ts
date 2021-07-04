@@ -1,11 +1,12 @@
-import { insertMetrics } from './databox';
+import { client, insertMetrics } from './databox';
 import { metrics } from '../common/types/metrics';
 import { Data, Service } from '../common/types/data';
 import { JsonDB } from 'node-json-db';
 import { Config } from 'node-json-db/dist/lib/JsonDBConfig';
 
-const databaseFile = process.env.DB ? process.env.DB : 'database.json';
-export const db = new JsonDB(new Config(databaseFile, true, true, '/'));
+import config from './config';
+
+export const db = new JsonDB(new Config(config.dbFileName, true, true, '/'));
 
 const dataString = '/data';
 
@@ -17,7 +18,7 @@ export const saveAndSendMetrics = (
   apiData: Partial<metrics>,
   service: Service
 ) => {
-  insertMetrics(apiData, (res) => {
+  insertMetrics(client, apiData, (res) => {
     const data: Data = {
       service,
       timestamp: new Date(),

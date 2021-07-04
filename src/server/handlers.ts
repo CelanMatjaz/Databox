@@ -1,13 +1,9 @@
 import { getToken, fetchGithubData } from './apis/github';
 import { fetchWeatherData } from './apis/weather';
 import { saveAndSendMetrics, getData } from './db';
-import * as dotenv from 'dotenv';
 import { Request, Response } from 'express';
 
-dotenv.config();
-
-const client_id = process.env.CLIENT_ID;
-const client_secret = process.env.CLIENT_SECRET;
+import config from './config'
 
 export const handlers = {
   callbackUrlHandler: async (req: Request, res: Response) => {
@@ -18,8 +14,8 @@ export const handlers = {
     }
 
     const { access_token, token_type } = await getToken(
-      client_id,
-      client_secret,
+      config.clientId,
+      config.clientSecret,
       code as string
     );
 

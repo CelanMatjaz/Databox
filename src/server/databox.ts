@@ -1,8 +1,8 @@
 /// @ts-nocheck
 import { metrics } from '../common/types/metrics';
 import Databox from 'databox';
-import * as dotenv from 'dotenv';
-dotenv.config();
+
+import config from './config';
 
 export interface DataboxResponse {
   status: string;
@@ -11,14 +11,15 @@ export interface DataboxResponse {
 }
 
 export const client = new Databox({
-  push_token: process.env.DATABOX_TOKEN,
+  push_token: config.databoxToken,
 });
 
 export const insertMetrics = (
+  client: typeof Databox,
   metrics: Partial<metrics>,
   cb?: (response?: DataboxResponse) => void
 ) => {
-  const a = client.insertAll(
+  client.insertAll(
     Object.entries<{ [key: string]: number }>(metrics).map(([key, value]) => ({
       key,
       value,
