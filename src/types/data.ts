@@ -1,7 +1,7 @@
-type service = 'github' | 'weather_api';
+export type Service = 'github' | 'weather_api';
 
-export interface data {
-  service: service;
+export interface Data {
+  service: Service;
   timestamp: Date;
   metricsSent: { [key: string]: any };
   kpis: number;

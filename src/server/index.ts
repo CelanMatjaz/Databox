@@ -1,10 +1,9 @@
-import { client, insertMetrics } from './databox';
+import { saveAndSendMetrics, saveDataToDb } from './db';
 import { fetchWeatherData } from './apis/weather';
 import express from 'express';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
 import open from 'open';
-import axios, { AxiosResponse } from 'axios';
 import { fetchGithubData, getToken } from './apis/github';
 
 dotenv.config();
@@ -37,11 +36,12 @@ app.get<{ state: string; code: string }>(
       client_secret,
       code as string
     );
-    
+
     const githubData = await fetchGithubData(access_token, token_type);
     const weatherData = await fetchWeatherData();
 
-    insertMetrics(Object.assign({}, githubData, weatherData));
+    saveAndSendMetrics(githubData, 'github');
+    saveAndSendMetrics(weatherData, 'weather_api');
 
     res.redirect(`/`);
   }
