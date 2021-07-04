@@ -1,7 +1,6 @@
 import * as webpack from 'webpack';
 import * as path from 'path';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import nodeExternals from 'webpack-node-externals';
 
 export const mode =
   process.env.NODE_ENV === 'production' ? 'production' : 'development';
@@ -70,7 +69,6 @@ export const commonConfig = (): webpack.Configuration => {
     optimization: {
       minimize: isProd,
     },
-    externals: ['commonjs', nodeExternals()],
   };
 
   return config;

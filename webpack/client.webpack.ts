@@ -31,5 +31,6 @@ export default (): webpack.Configuration => {
       }),
       new webpack.CleanPlugin(),
     ],
+    externals: ['commonjs'],
   });
 };

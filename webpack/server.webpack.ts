@@ -1,6 +1,7 @@
 import * as webpack from 'webpack';
 import webpackMerge from 'webpack-merge';
 import * as path from 'path';
+import nodeExternals from 'webpack-node-externals';
 
 import { commonConfig, serverSrcPath, serverBuildPath } from './common.webpack';
 
@@ -16,5 +17,6 @@ export default (): webpack.Configuration => {
       filename: 'server.js',
       libraryTarget: 'commonjs2',
     },
+    externals: ['commonjs', nodeExternals()],
   });
 };
