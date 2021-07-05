@@ -18,7 +18,7 @@ export const startPolling = () => {
       );
       saveAndSendMetrics(githubData, 'Github', db);
 
-      const weatherData = await fetchWeatherData();
+      const weatherData = await fetchWeatherData(config);
       saveAndSendMetrics(weatherData, 'Weather api', db);
     }
   }, config.intervalTime * 1000);

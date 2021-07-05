@@ -21,6 +21,9 @@ export const handlers = {
     config.githubAccessToken = access_token;
     config.githubAccessTokenType = token_type;
 
+    process.env.GITHUB_ACCESS_TOKEN = access_token;
+    process.env.GITHUB_ACCESS_TOKEN_TYPE = token_type;
+
     res.redirect(`/`);
   },
   getDataHandler: (req: Request, res: Response) => {

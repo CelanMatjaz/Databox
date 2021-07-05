@@ -18,19 +18,27 @@ const authenticateGithub = async () => {
 };
 
 authenticateGithub();
-startPolling();
+
+const poll = () => {
+  const interval = setInterval(() => {
+    if (config.githubAccessToken.length > 0) {
+      startPolling();
+      clearInterval(interval);
+    }
+  }, 5000);
+};
+
+poll();
 
 app.get<{ state: string; code: string }>(
   '/github-callback',
   handlers.callbackUrlHandler
 );
-
-const PORT = process.env.PORT || 2000;
-
 app.get('/data', handlers.getDataHandler);
 app.use(express.static(path.resolve('build/client')));
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('build/client/index.html'));
 });
 
+const PORT = process.env.PORT || 2000;
 app.listen(PORT, () => console.log('Server started on port', PORT));

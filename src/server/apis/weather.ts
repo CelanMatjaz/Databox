@@ -1,11 +1,13 @@
 import { weatherMetrics } from '../../common/types/metrics';
 import axios, { AxiosResponse } from 'axios';
 
-import config from '../config';
+import { Config } from '../config';
 
 const city = 'maribor';
 
-export const fetchWeatherData = async (): Promise<weatherMetrics> => {
+export const fetchWeatherData = async (
+  config: Config
+): Promise<weatherMetrics> => {
   const res = await axios.get<
     {},
     AxiosResponse<{

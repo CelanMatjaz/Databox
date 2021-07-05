@@ -17,6 +17,7 @@ export const saveAndSendMetrics = (
   service: Service,
   db: JsonDB
 ) => {
+  console.log('saving data');
   insertMetrics(client, apiData, (res) => {
     const data: Data = {
       service,
@@ -31,6 +32,10 @@ export const saveAndSendMetrics = (
   });
 };
 
-export const getData = (db: JsonDB) => {
-  return db.getData('/data');
+export const getData = (db: JsonDB): Data[] => {
+  try {
+    return db.getData('/data');
+  } catch {
+    return [];
+  }
 };
