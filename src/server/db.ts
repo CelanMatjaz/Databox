@@ -17,7 +17,6 @@ export const saveAndSendMetrics = (
   service: Service,
   db: JsonDB
 ) => {
-  console.log('saving data');
   insertMetrics(client, apiData, (res) => {
     const data: Data = {
       service,
