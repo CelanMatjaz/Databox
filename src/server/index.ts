@@ -17,7 +17,8 @@ const authenticateGithub = async () => {
   await open(authUrl);
 };
 
-authenticateGithub();
+if (process.env.NODE_ENV === 'production') authenticateGithub();
+else console.log('github auth url:', authUrl);
 
 const poll = () => {
   const interval = setInterval(() => {
