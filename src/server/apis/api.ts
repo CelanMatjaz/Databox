@@ -2,9 +2,9 @@ import { saveAndSendMetrics, db } from '../db';
 import { fetchGithubData } from './github';
 import { fetchWeatherData } from './weather';
 
-import config from '../config';
+import { Config } from '../config';
 
-export const startPolling = () => {
+export const startPolling = (config: Config) => {
   setInterval(async () => {
     if (
       config.githubAccessToken &&

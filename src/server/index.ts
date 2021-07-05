@@ -22,7 +22,7 @@ authenticateGithub();
 const poll = () => {
   const interval = setInterval(() => {
     if (config.githubAccessToken.length > 0) {
-      startPolling();
+      startPolling(config);
       clearInterval(interval);
     }
   }, 5000);
