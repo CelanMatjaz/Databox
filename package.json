@@ -10,8 +10,10 @@
     "@babel/preset-typescript": "^7.14.5",
     "@babel/runtime": "^7.14.6",
     "@types/axios": "^0.14.0",
+    "@types/chai": "^4.2.19",
     "@types/express": "^4.17.12",
     "@types/mini-css-extract-plugin": "^2.0.0",
+    "@types/mocha": "^8.2.2",
     "@types/node": "^15.14.0",
     "@types/open": "^6.2.1",
     "@types/react": "^17.0.13",
@@ -29,6 +31,7 @@
     "mini-css-extract-plugin": "^2.0.0",
     "mocha": "^9.0.2",
     "nodemon": "^2.0.9",
+    "nyc": "^15.1.0",
     "prettier": "^2.3.2",
     "sass": "^1.35.1",
     "sass-loader": "^12.1.0",
@@ -56,6 +59,7 @@
     "dev:server": "nodemon build/server/server.js",
     "build:server": "set NODE_ENV=production && webpack --config ./webpack/server.webpack.ts",
     "build:client": "set NODE_ENV=production && webpack --config ./webpack/client.webpack.ts",
-    "build-and-run": "concurrently \"yarn build:server\" \"yarn build:client\" && node build/server/server.js"
+    "build-and-run": "concurrently \"yarn build:server\" \"yarn build:client\" && node build/server/server.js",
+    "test": "nyc mocha ./test/server/* ./test/server/*/* --require ts-node/register --recursive"
   }
 }
