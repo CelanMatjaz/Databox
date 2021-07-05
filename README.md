@@ -8,7 +8,8 @@ To install yarn: `npm i -g yarn`
 
 Run `yarn build-and-run` to build and run the app
 
-Each time the server starts, a new browser tab will open to prompt you to login to your github account. After logging in, you will be redirected to / where you can look up all the locally stored data.
+Each time the server starts, a new browser tab will open to prompt you to login to your github account. After logging in, you will be redirected to / where you can look up all the locally stored data. The data is updated every x seconds, x is the number that INTERVAL_TIME is set to in .env.
+The data is fetched from the 2 APIs, then saved locally. Each interval all the metrics are sent to the Databox API.
 
 The locally stored data is stored on in a .json file that is specified in the .env file.
 
