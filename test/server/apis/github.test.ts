@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import { fetchGithubData } from '../../../src/server/apis/github';
+import { fetchGithubData, getToken } from '../../../src/server/apis/github';
+import config from '../../../src/server/config';
 
 describe('github api', () => {
   before(() => {});
@@ -26,6 +27,13 @@ describe('github api', () => {
       expect(branches_count).to.not.be.undefined;
       expect(watchers_count).to.not.be.undefined;
       expect(subscribers_count).to.not.be.undefined;
+    });
+  });
+
+  describe('getToken', () => {
+    it('should fail getting the token with wrong credentials', async () => {
+      expect(await getToken(config.clientId, config.clientSecret, 'code')).to
+        .throw;
     });
   });
 });

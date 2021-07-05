@@ -5,12 +5,13 @@ import { expect } from 'chai';
 import { Data } from '../../src/common/types/data';
 import { Config } from 'node-json-db/dist/lib/JsonDBConfig';
 import * as fs from 'fs';
+import { after } from 'mocha';
 
 dotenv.config();
 
 describe('database', () => {
   const dbFilePath = './test/test_db.json';
-  let testDb: JsonDB;
+  let testDb: JsonDB = new JsonDB(new Config(dbFilePath, true, true, '/'));
 
   const data: Data = {
     service: 'Github',
@@ -20,14 +21,13 @@ describe('database', () => {
     status: 'OK',
   };
 
-  describe('saveDataToDb', () => {
-    beforeEach(() => {
-      testDb = new JsonDB(new Config(dbFilePath, true, true, '/'));
-    });
+  after(() => {
+    fs.rmSync(dbFilePath);
+  });
 
+  describe('saveDataToDb', () => {
     afterEach(() => {
-      if (fs.existsSync(dbFilePath))
-        fs.rm(dbFilePath, (err) => console.log(err));
+      testDb.delete('/data');
     });
 
     it('should save data to the db', async () => {
@@ -45,26 +45,17 @@ describe('database', () => {
   });
 
   describe('getData', () => {
-    beforeEach(() => {
-      testDb = new JsonDB(new Config(dbFilePath, true, true, '/'));
-    });
-
     afterEach(() => {
-      if (fs.existsSync(dbFilePath))
-        fs.rm(dbFilePath, (err) => console.log(err));
+      testDb.delete('/data');
     });
 
-    it('should', () => {
+    it('should return all saved data', () => {
       saveDataToDb(testDb, data);
 
       const returnedData = getData(testDb);
 
       expect(returnedData).to.not.be.null;
       expect(returnedData.length).to.equal(1);
-    });
-
-    after(() => {
-      fs.rm(dbFilePath, (err) => console.log(err));
     });
   });
 });
