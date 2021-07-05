@@ -55,10 +55,10 @@
     "react-dom": "^17.0.2"
   },
   "scripts": {
-    "dev:watch": "concurrently \"yarn build:server -w\" \"yarn build:client -w\"",
+    "dev:watch": "concurrently \"webpack --config ./webpack/server.webpack.ts -w\" \"webpack --config ./webpack/client.webpack.ts -w\"",
     "dev:server": "nodemon build/server/server.js",
-    "build:server": "set NODE_ENV=production && webpack --config ./webpack/server.webpack.ts",
-    "build:client": "set NODE_ENV=production && webpack --config ./webpack/client.webpack.ts",
+    "build:server": "webpack --config ./webpack/server.webpack.ts --node-env=production",
+    "build:client": "webpack --config ./webpack/client.webpack.ts --node-env=production",
     "build-and-run": "concurrently \"yarn build:server\" \"yarn build:client\" && node build/server/server.js",
     "test": "nyc mocha ./test/server/* ./test/server/*/* --require ts-node/register --recursive"
   }
