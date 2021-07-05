@@ -6,5 +6,5 @@ export interface Data {
   metricsSent: { [key: string]: number };
   kpis: number;
   status: string;
-  error: string;
+  error?: string;
 }
