@@ -1,5 +1,5 @@
-import { githubMetrics } from '../../common/types/metrics';
 import axios, { AxiosResponse } from 'axios';
+import { githubMetrics } from '../../common/types/metrics';
 
 type GithubResponse = Omit<githubMetrics, 'branches_count'> & {
   branches_url: string;
