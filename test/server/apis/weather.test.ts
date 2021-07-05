@@ -4,7 +4,7 @@ import { expect } from 'chai';
 
 dotenv.config();
 
-import config, { Config } from '../../../src/server/config';
+import config from '../../../src/server/config';
 
 describe('weather api', () => {
   describe('fetchWeatherData', () => {
@@ -26,7 +26,19 @@ describe('weather api', () => {
 
     it('should throw an error', async () => {
       try {
-        expect(await fetchWeatherData({} as Config)).to.throw;
+        expect(
+          await fetchWeatherData({
+            intervalTime: 1000,
+            databoxToken: '',
+            clientId: '',
+            clientSecret: '',
+            state: '',
+            weatherApiKey: '',
+            dbFileName: '',
+            githubAccessToken: '',
+            githubAccessTokenType: '',
+          })
+        ).to.throw;
       } catch {}
     });
   });
